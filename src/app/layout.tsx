@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Providers from "./Providers";
+import Breadcrumbs from "./Breadcrumbs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +42,10 @@ export default function RootLayout({
               <Link href="/login" className="btn btn-primary">Connexion</Link>
             </div>
           </div>
-          <main className="container mx-auto px-4">{children}</main>
+          <main className="container mx-auto px-4">
+          <Breadcrumbs />
+            {children}
+            </main>
         </Providers>
       </body>
     </html>
