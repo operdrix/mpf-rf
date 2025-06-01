@@ -1,9 +1,9 @@
+import Header from "@/components/Header";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Link from "next/link";
-import Providers from "./Providers";
 import Breadcrumbs from "./Breadcrumbs";
+import "./globals.css";
+import Providers from "./Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,21 +31,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div className="navbar bg-base-100 shadow mb-8">
-            <div className="flex-1">
-              <Link href="/" className="btn btn-ghost normal-case text-xl">MPF & RF FFESSM</Link>
-            </div>
-            <div className="flex-none gap-2">
-              <Link href="/records" className="btn btn-ghost">Records</Link>
-              <Link href="/competiteurs" className="btn btn-ghost">Compétiteurs</Link>
-              <Link href="/epreuves" className="btn btn-ghost">Épreuves</Link>
-              <Link href="/login" className="btn btn-primary">Connexion</Link>
-            </div>
-          </div>
+          <Header />
           <main className="container mx-auto px-4">
-          <Breadcrumbs />
+            <Breadcrumbs />
             {children}
-            </main>
+          </main>
         </Providers>
       </body>
     </html>
