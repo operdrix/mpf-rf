@@ -1,20 +1,27 @@
 "use client";
-import { useState } from "react";
 import EditCompetiteurForm from "./EditCompetiteurForm";
 import type { Competiteur } from "./types";
 
 export default function EditButton({ competiteur }: { competiteur: Competiteur }) {
-  const [open, setOpen] = useState(false);
   return (
     <>
-      <button className="btn btn-warning btn-xs mr-2" onClick={() => setOpen(true)}>Modifier</button>
-      {open && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-base-100 p-6 rounded shadow-lg">
-            <EditCompetiteurForm competiteur={competiteur} onClose={() => setOpen(false)} />
+      <button
+        className="btn btn-warning btn-xs mr-2"
+        onClick={() => (document.getElementById('EditFormModal') as HTMLDialogElement)?.showModal()}
+      >
+        Modifier
+      </button>
+      <dialog id="EditFormModal" className="modal">
+        <div className="modal-box w-11/12 max-w-5xl">
+          <h3 className="font-bold text-lg">Modifier le compétiteur</h3>
+          <div className="py-4">
+            <EditCompetiteurForm
+              competiteur={competiteur}
+              onClose={() => (document.getElementById('EditFormModal') as HTMLDialogElement)?.close()}
+            />
           </div>
         </div>
-      )}
+      </dialog>
     </>
   );
 } 

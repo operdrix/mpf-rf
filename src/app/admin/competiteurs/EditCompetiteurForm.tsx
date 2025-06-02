@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import "cally";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import type { Competiteur } from "./types";
 
 export default function EditCompetiteurForm({ competiteur, onClose }: { competiteur: Competiteur, onClose: () => void }) {
@@ -32,15 +33,38 @@ export default function EditCompetiteurForm({ competiteur, onClose }: { competit
   };
 
   return (
-    <form className="flex flex-wrap gap-4 items-end" onSubmit={handleSubmit}>
-      <input name="license" value={form.license} onChange={handleChange} className="input input-bordered" placeholder="Licence" required />
-      <input name="lastName" value={form.lastName} onChange={handleChange} className="input input-bordered" placeholder="Nom" required />
-      <input name="firstName" value={form.firstName} onChange={handleChange} className="input input-bordered" placeholder="Prénom" required />
-      <input name="club" value={form.club} onChange={handleChange} className="input input-bordered" placeholder="Club" required />
-      <input name="birthDate" value={form.birthDate.slice(0,10)} onChange={handleChange} className="input input-bordered" type="date" required />
-      <button className="btn btn-primary" type="submit" disabled={loading}>{loading ? "Enregistrement..." : "Enregistrer"}</button>
-      <button className="btn btn-ghost" type="button" onClick={onClose}>Annuler</button>
-      {error && <span className="text-error ml-4">{error}</span>}
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <div className="flex flex-row gap-4">
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">Licence</legend>
+          <input name="license" value={form.license} onChange={handleChange} className="input input-bordered" placeholder="Licence" required />
+        </fieldset>
+      </div>
+      <div className="flex flex-row gap-4">
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">Nom</legend>
+          <input name="lastName" value={form.lastName} onChange={handleChange} className="input input-bordered" placeholder="Nom" required />
+        </fieldset>
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">Prénom</legend>
+          <input name="firstName" value={form.firstName} onChange={handleChange} className="input input-bordered" placeholder="Prénom" required />
+        </fieldset>
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">Date de naissance</legend>
+          <input name="birthDate" value={form.birthDate.slice(0, 10)} onChange={handleChange} className="input input-bordered" type="date" required />
+        </fieldset>
+      </div>
+      <div className="flex flex-row gap-4">
+        <fieldset>
+          <legend className="fieldset-legend">Club</legend>
+          <input name="club" value={form.club} onChange={handleChange} className="input input-bordered" placeholder="Club" required />
+        </fieldset>
+      </div>
+      <div className="flex flex-row gap-4">
+        <button className="btn btn-primary" type="submit" disabled={loading}>{loading ? "Enregistrement..." : "Enregistrer"}</button>
+        <button className="btn btn-ghost" type="button" onClick={onClose}>Annuler</button>
+        {error && <span className="text-error ml-4">{error}</span>}
+      </div>
     </form>
   );
 } 
