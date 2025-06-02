@@ -1,6 +1,6 @@
 "use client";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Breadcrumbs() {
   const pathname = usePathname();
@@ -22,11 +22,15 @@ export default function Breadcrumbs() {
   });
 
   return (
-    <div className="breadcrumbs text-sm mb-4">
-      <ul>
-        <li><Link href="/">Accueil</Link></li>
-        {crumbs}
-      </ul>
-    </div>
+    <>
+      {pathname !== "/" && (
+        <div className="breadcrumbs text-sm mb-4">
+          <ul>
+            <li><Link href="/">Accueil</Link></li>
+            {crumbs}
+          </ul>
+        </div>
+      )}
+    </>
   );
 } 
