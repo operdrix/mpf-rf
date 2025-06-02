@@ -12,6 +12,34 @@ enum Role {
   USER
 }
 
+enum AgeCategory {
+  B
+  M
+  C
+  J
+  S
+  V1
+  V2
+  V3
+  V4
+  V5
+  V6
+  V7
+  V8
+  V9
+}
+
+enum EventCategory {
+  MALE
+  FEMALE
+  MIXED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -51,34 +79,6 @@ model Event {
   poolLength Int     // en mètres (25 ou 50)
   category   EventCategory  // Hommes, Femmes, Mixte
   performances Performance[]
-}
-
-enum AgeCategory {
-  B
-  M
-  C
-  J
-  S
-  V1
-  V2
-  V3
-  V4
-  V5
-  V6
-  V7
-  V8
-  V9
-}
-
-enum EventCategory {
-  MALE
-  FEMALE
-  MIXED
-}
-
-enum Gender {
-  MALE
-  FEMALE
 }
 
 model Performance {
