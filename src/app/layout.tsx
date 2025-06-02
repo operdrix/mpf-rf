@@ -1,7 +1,8 @@
+import Breadcrumbs from "@/components/Breadcrumbs";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Breadcrumbs from "./Breadcrumbs";
 import "./globals.css";
 import Providers from "./Providers";
 
@@ -28,14 +29,15 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <Providers>
           <Header />
-          <main className="container mx-auto px-4">
+          <main className="container mx-auto px-4 flex-1">
             <Breadcrumbs />
             {children}
           </main>
+          <Footer />
         </Providers>
       </body>
     </html>

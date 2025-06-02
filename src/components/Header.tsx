@@ -7,7 +7,7 @@ type UserWithRole = { name?: string | null; email?: string | null; image?: strin
 export default function Header() {
   const { data: session } = useSession();
   return (
-    <div className="navbar bg-base-100 shadow mb-8">
+    <header className="navbar bg-base-100 shadow mb-8">
       <div className="flex-1">
         <Link href="/" className="btn btn-ghost normal-case text-xl">MPF & RF FFESSM</Link>
       </div>
@@ -16,13 +16,13 @@ export default function Header() {
         <Link href="/competiteurs" className="btn btn-ghost">Compétiteurs</Link>
         <Link href="/epreuves" className="btn btn-ghost">Épreuves</Link>
         {session?.user ? (
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost">
+          <div className={`dropdown dropdown-end`}>
+            <label tabIndex={0} role="button" className="btn btn-ghost rounded-field">
               {session.user.name || session.user.email}
             </label>
             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
               {(session.user as UserWithRole).role === "admin" && (
-                <li><Link href="/admin">Espace Admin</Link></li>
+                <li><Link href="/admin"><button onClick={() => document.activeElement?.blur()}>Espace Admin</button></Link></li>
               )}
               <li><button onClick={() => signOut({ callbackUrl: "/" })}>Déconnexion</button></li>
             </ul>
@@ -31,6 +31,6 @@ export default function Header() {
           <Link href="/login" className="btn btn-primary">Connexion</Link>
         )}
       </div>
-    </div>
+    </header>
   );
 }
