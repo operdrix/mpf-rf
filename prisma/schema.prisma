@@ -7,14 +7,30 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
   name      String?
-  role      String   // 'admin' ou 'user'
+  role      Role
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Club {
+  id        Int      @id @default(autoincrement())
+  license   String   @unique
+  name      String
+  shortName String?
+  city      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Competitor Competitor[]
 }
 
 model Competitor {
@@ -22,8 +38,10 @@ model Competitor {
   license      String   @unique
   lastName     String
   firstName    String
-  club         String
+  club         Club     @relation(fields: [clubId], references: [id])
+  clubId       Int
   birthDate    DateTime
+  gender       Gender
   performances Performance[]
 }
 
@@ -31,8 +49,36 @@ model Event {
   id         Int      @id @default(autoincrement())
   name       String
   poolLength Int     // en mètres (25 ou 50)
-  category   String  // Hommes, Femmes, Mixte
+  category   EventCategory  // Hommes, Femmes, Mixte
   performances Performance[]
+}
+
+enum AgeCategory {
+  B
+  M
+  C
+  J
+  S
+  V1
+  V2
+  V3
+  V4
+  V5
+  V6
+  V7
+  V8
+  V9
+}
+
+enum EventCategory {
+  MALE
+  FEMALE
+  MIXED
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }
 
 model Performance {
@@ -45,7 +91,7 @@ model Performance {
   competitorId Int
   event        Event   @relation(fields: [eventId], references: [id])
   eventId      Int
-  ageCategory  String  // catégorie d'âge lors de la perf
+  ageCategory  AgeCategory  // catégorie d'âge lors de la perf
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 } 
