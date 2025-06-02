@@ -1,21 +1,35 @@
 "use client";
-import { useState } from "react";
+import { CompetitorInput } from "@/lib/validations/competitor";
+import { Club } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 
 export default function AddCompetiteurForm() {
-  const [form, setForm] = useState({
+  const [clubs, setClubs] = useState<Club[]>([]);
+  const [form, setForm] = useState<CompetitorInput>({
     license: "",
     lastName: "",
     firstName: "",
-    club: "",
-    birthDate: "",
+    clubId: 0,
+    birthDate: new Date(),
+    gender: "MALE"
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    const fetchClubs = async () => {
+      const res = await fetch(`${baseUrl}/api/admin/clubs`);
+      const data = await res.json();
+      setClubs(data);
+    };
+    fetchClubs();
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -34,7 +48,7 @@ export default function AddCompetiteurForm() {
       return;
     }
     router.refresh();
-    setForm({ license: "", lastName: "", firstName: "", club: "", birthDate: "" });
+    setForm({ license: "", lastName: "", firstName: "", clubId: 0, birthDate: new Date(), gender: "MALE" });
   };
 
   return (
@@ -42,8 +56,17 @@ export default function AddCompetiteurForm() {
       <input name="license" value={form.license} onChange={handleChange} className="input input-bordered" placeholder="Licence" required />
       <input name="lastName" value={form.lastName} onChange={handleChange} className="input input-bordered" placeholder="Nom" required />
       <input name="firstName" value={form.firstName} onChange={handleChange} className="input input-bordered" placeholder="Prénom" required />
-      <input name="club" value={form.club} onChange={handleChange} className="input input-bordered" placeholder="Club" required />
-      <input name="birthDate" value={form.birthDate} onChange={handleChange} className="input input-bordered" type="date" required />
+      <select name="clubId" value={form.clubId} onChange={handleChange} className="select select-bordered" required>
+        {clubs.map((club) => (
+          <option key={club.id} value={club.id}>{club.name}</option>
+        ))}
+      </select>
+      <input name="birthDate" value={form.birthDate.toISOString().split("T")[0]} onChange={handleChange} className="input input-bordered" type="date" required />
+      <select name="gender" value={form.gender} onChange={handleChange} className="select select-bordered" required>
+        <option value="MALE">Masculin</option>
+        <option value="FEMALE">Féminin</option>
+      </select>
+      <input name="birthDate" value={form.birthDate.toISOString().split("T")[0]} onChange={handleChange} className="input input-bordered" type="date" required />
       <button className="btn btn-primary" type="submit" disabled={loading}>{loading ? "Ajout..." : "Ajouter"}</button>
       {error && <span className="text-error ml-4">{error}</span>}
     </form>

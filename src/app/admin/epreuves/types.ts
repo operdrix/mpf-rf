@@ -1,6 +1,3 @@
-export type Epreuve = {
-  id: number;
-  name: string;
-  poolLength: number;
-  category: string;
-}; 
+import { Event } from "@prisma/client";
+
+export type { Event };

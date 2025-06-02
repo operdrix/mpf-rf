@@ -59,8 +59,8 @@ model Club {
   id        Int      @id @default(autoincrement())
   license   String   @unique
   name      String
-  shortName String?
-  city      String?
+  shortName String
+  city      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Competitor Competitor[]

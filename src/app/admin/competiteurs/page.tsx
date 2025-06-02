@@ -1,12 +1,12 @@
-import React from "react";
 import AddCompetiteurForm from "./AddCompetiteurForm";
-import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
 import type { Competiteur } from "./types";
 
 async function getCompetiteurs() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
   const res = await fetch(`${baseUrl}/api/admin/competiteurs`, { cache: "no-store" });
+  console.log(res);
   if (!res.ok) throw new Error("Erreur lors du chargement des compétiteurs");
   return res.json();
 }
@@ -35,7 +35,7 @@ export default async function AdminCompetiteursPage() {
                 <td>{c.license}</td>
                 <td>{c.lastName}</td>
                 <td>{c.firstName}</td>
-                <td>{c.club}</td>
+                <td>{c.club.name}</td>
                 <td>{new Date(c.birthDate).toLocaleDateString()}</td>
                 <td><EditButton competiteur={c} /> <DeleteButton id={c.id} /></td>
               </tr>

@@ -21,7 +21,7 @@ export default function Header() {
               {session.user.name || session.user.email}
             </label>
             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              {(session.user as UserWithRole).role === "admin" && (
+              {(session.user as UserWithRole).role === "ADMIN" && (
                 <li><Link href="/admin"><button onClick={() => document.activeElement?.blur()}>Espace Admin</button></Link></li>
               )}
               <li><button onClick={() => signOut({ callbackUrl: "/" })}>Déconnexion</button></li>

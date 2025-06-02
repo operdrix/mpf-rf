@@ -1,8 +1,4 @@
-export type Competiteur = {
-  id: number;
-  license: string;
-  lastName: string;
-  firstName: string;
-  club: string;
-  birthDate: string;
-}; 
+import { Competitor } from "@prisma/client";
+
+export type { Competitor };
+

@@ -9,6 +9,7 @@ export default function AdminDashboard() {
         <Link href="/admin/competiteurs" className="btn btn-outline btn-primary">Gestion des compétiteurs</Link>
         <Link href="/admin/epreuves" className="btn btn-outline btn-primary">Gestion des épreuves</Link>
         <Link href="/admin/performances" className="btn btn-outline btn-primary">Gestion des performances (MPF/RF)</Link>
+        <Link href="/admin/clubs" className="btn btn-outline btn-primary">Gestion des clubs</Link>
       </div>
     </div>
   );

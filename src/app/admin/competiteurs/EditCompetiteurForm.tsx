@@ -1,5 +1,4 @@
 "use client";
-import "cally";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Competiteur } from "./types";
@@ -18,7 +17,8 @@ export default function EditCompetiteurForm({ competiteur, onClose }: { competit
     e.preventDefault();
     setLoading(true);
     setError("");
-    const res = await fetch("/api/admin/competiteurs", {
+    const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const res = await fetch(`${apiUrl}/api/admin/competiteurs`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -57,7 +57,9 @@ export default function EditCompetiteurForm({ competiteur, onClose }: { competit
       <div className="flex flex-row gap-4">
         <fieldset>
           <legend className="fieldset-legend">Club</legend>
-          <input name="club" value={form.club} onChange={handleChange} className="input input-bordered" placeholder="Club" required />
+          <select name="clubId" value={form.club.id} onChange={handleChange} className="select select-bordered" required>
+            {form.club.name}
+          </select>
         </fieldset>
       </div>
       <div className="flex flex-row gap-4">
