@@ -21,6 +21,9 @@ ALTER TABLE `Event` MODIFY `category` ENUM('MALE', 'FEMALE', 'MIXED') NOT NULL;
 ALTER TABLE `Performance` MODIFY `ageCategory` ENUM('B', 'M', 'C', 'J', 'S', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9') NOT NULL;
 
 -- AlterTable
+ALTER TABLE `Performance` MODIFY `type` ENUM('MPF', 'RF') NOT NULL;
+
+-- AlterTable
 ALTER TABLE `User` MODIFY `role` ENUM('ADMIN', 'USER') NOT NULL;
 
 -- CreateTable

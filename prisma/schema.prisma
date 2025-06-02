@@ -12,6 +12,11 @@ enum Role {
   USER
 }
 
+enum EventType {
+  MPF
+  RF
+}
+
 enum AgeCategory {
   B
   M
@@ -84,7 +89,7 @@ model Event {
 model Performance {
   id           Int      @id @default(autoincrement())
   time         Float    // temps en secondes
-  type         String   // 'MPF' ou 'RF'
+  type         EventType
   date         DateTime
   valid        Boolean  @default(false)
   competitor   Competitor @relation(fields: [competitorId], references: [id])
